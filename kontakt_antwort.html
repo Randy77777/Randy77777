@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontaktformular Antwort</title>
+	<style>
+		body{
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin: 0;
+			padding: 0;
+			color: #333;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			box-sizing: border-box;
+			background: #1c1c1c;
+		}
+		form{
+			max-width: 700px;
+			height: 500px;
+			width: 100%;
+			padding: 40px;
+			background-color: #fff;
+			border-radius: 20px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+			text-align: center;
+		}
+		h2{
+			margin-bottom: 20px;
+			font-size: 2rem;
+		}
+		p{
+			margin-bottom: 20px;
+			font-size: 1.5rem;
+		}
+	</style>
+</head>
+<body>
+	<form>
+	<p id="aktuellesDatum"></p>
+	<script>
+		var heute = new Date();
+		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		var formatiertesDatum = heute.toLocaleDateString('de-DE', options);
+		document.getElementById("aktuellesDatum").innerHTML = formatiertesDatum;
+	</script>
+		<?php
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+				$name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
+				$email = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
+				$alter = isset($_POST['alter']) ? (int)$_POST['alter'] : 0;
+				$nachricht = isset($_POST['nachricht']) ? htmlspecialchars($_POST['nachricht']) : '';
+				echo "<h2>Vielen Dank für die Nachricht, $name!</h2>";
+				echo "<p>Sie werden vorraussichtlicht niemals eine Antwort erhalten:)</p>";
+				echo"<p></p>";
+				echo "<p>Name: $name</p>";
+				echo "<p>Alter: $alter</p>";
+				echo "<p>E-Mail: $email</p>";
+				echo "<p>Nachricht: $nachricht</p>";
+			} else {
+				echo "<h2>Ungültiger Aufruf.</h2>";
+				echo "<p>Bitte fülle das <a href='index.php'>Formular</a> aus und sende es.</p>";
+			}
+		?>
+	</form>
+</body>
+</html>
